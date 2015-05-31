@@ -1,0 +1,11 @@
+body{
+	background-color: #e6e6e8;
+}
+
+input{
+	position: relative;
+	margin: 0 auto;
+	display: block;
+	top: 70px;
+	outline: none;
+}
