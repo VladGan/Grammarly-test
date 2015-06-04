@@ -3,6 +3,7 @@ var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturda
 var types = ['day', 'month', 'year'];
 var typeNum = 0;
 var currentDate = new Date();
+var caretType, caretPos;
 var current = {
 	monthDay:currentDate.getDate(),
 	month:currentDate.getMonth(),
@@ -15,6 +16,13 @@ function min(a,b){
 	return b;
 }
 
+function getPos(){
+	return $('#calendar')[0].selectionStart;
+}
+function setPos(newPos){
+	$('#calendar')[0].setSelectionRange(newPos, newPos);
+}
+
 function GetMonthName(monthNumber) {
 	return months[monthNumber];
 }
@@ -24,13 +32,10 @@ function daysInMonth(month,year) {
 }
 
 function currentDateStringFirstT() {
-	if (current.year!=today.year)
-		return current.year + " " + months[current.month] + " " + current.monthDay;
-	return months[current.month] + " " + current.monthDay;
-	// var day=current.monthDay.toString();
-	// var month=(current.month+1).toString();
-	// var year=current.year.toString();
-	// if (day.length < 2) day = "0" + day;
-	// if (month.length < 2) month = "0" + month;
-	// return day + "." + month + "." + year;
+	var year = current.year;
+	var month = months[current.month];
+	var day = current.monthDay;
+	if (day<10) day="0"+day;
+
+	return year + " " + month + " " + day;
 }
