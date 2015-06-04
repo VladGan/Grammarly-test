@@ -1,16 +1,28 @@
 $(document).ready(function($) {
 	function init(){
-		$('#calendar').val(months[current.month] + " " + current.monthDay);
-		$('body').append("<img src='images/select.png' id='icon'>");
-		var offset = $('#calendar').offset();
-		$('#icon').offset({ top: offset.top + 25, left: offset.left + 300});
-		$('#icon').width('25px').css('cursor','pointer');
+		$('#calendar').val(currentDateStringFirstT());
+		$('body').append('<div id="icon1"></div>');
+		$('body').append('<div id="icon2"></div>');
 
-		$('#calendar, #icon').click(function() {
+		var offset = $('#calendar').offset();
+
+		$('#icon1').offset({ top: offset.top + 11, left: offset.left + 300});
+		$('#icon2').offset({ top: offset.top + 16, left: offset.left + 302});
+
+		$('#icon2, #icon1').hover(function(){
+				$("#icon1").css('background-color','rgba(234, 102, 97, 0.5)');
+			}, function(){
+				$("#icon1").css('background-color','#d5d5d6')
+			});
+
+		$('#icon1, #icon2').click(function() {
 			var widget = getWidget("day");
 			typeNum=0;
 			$(document).on('click', function(event) {
-				var condition = !$(event.target).closest('.calendar').length && $(event.target).attr('id')!="calendar" && $(event.target).attr('id')!="icon";
+				var condition = !$(event.target).closest('.calendar').length 
+								&& $(event.target).attr('id')!="icon1" 
+								&& $(event.target).attr('id')!="icon2"
+								&& $(event.target).attr('id')!="calendar";
 				if (condition)
 					render();
 			});
@@ -18,19 +30,84 @@ $(document).ready(function($) {
 		});
 	}
 
+	function slide(type) {
+		$(".calendarMatrix").removeAttr('style');
+		$(".calendarMatrix").css("right","auto");
+		$(".calendarMatrix").css("left","auto");
+
+		if (type == 'r')
+			$(".calendarMatrix").animate({right:"350px"}, 150, function(){
+				render();
+				var widget = getWidget(types[typeNum%3]);
+				render(widget,type);
+			});
+		else
+			$(".calendarMatrix").animate({left:"350px"},  150, function(){
+				render();
+				var widget = getWidget(types[typeNum%3]);
+				render(widget,type);
+			});
+	}
+
 	function addListeners() {
+		$('.calendarHeaderText').click(function(){
+			$(".calendarMatrix").css('transition','0.15s')
+								.css('transform','scale(0)')
+								.css('opacity','0');
+			setTimeout(function(){
+				render();
+				var widget = getWidget(types[(++typeNum)%3]);
+				typeNum%=3;
+				render(widget,'f');
+			}, 150);
+
+			
+		});
 		$('.right').click(function(){
-			render();
-			var widget = getWidget(types[(++typeNum)%3]);
-			typeNum%=3;
-			render(widget);
+			if (typeNum == 0) { 
+				current.month++;
+				if (current.month == 12){
+					current.month = 0;
+					current.year++;
+				}
+				current.monthDay = min(current.monthDay,daysInMonth(current.month,current.year));
+				slide('r');
+			};
+
+			if (typeNum == 1) {
+				current.year++;
+				render();
+				var widget = getWidget(types[typeNum%3]);
+				render(widget);
+			};
+
+			if (typeNum == 2) {
+				current.year+=15;
+				slide('r');
+			};
 		});
 		$('.left').click(function(){
-			render();
-			typeNum+=2;
-			var widget = getWidget(types[typeNum%3]);
-			typeNum%=3;
-			render(widget);
+			if (typeNum == 0) { 
+				current.month--;
+				if (current.month == -1){
+					current.month = 11;
+					current.year--;
+				}
+				current.monthDay = min(current.monthDay,daysInMonth(current.month,current.year));
+				slide('l');
+			};
+
+			if (typeNum == 1) {
+				current.year--;
+				render();
+				var widget = getWidget(types[typeNum%3]);
+				render(widget);
+			};
+
+			if (typeNum == 2) {
+				current.year-=15;
+				slide('l');
+			};
 		});
 		$('.calendarToday').click(function(){
 			current = jQuery.extend({}, today)
@@ -41,7 +118,7 @@ $(document).ready(function($) {
 		$('.day, .month, .year').click(function(){
 			var t = this;
 			if (t.className == "year") {
-				current.year = t.innerText;
+				current.year = parseInt(t.innerText);
 				current.monthDay = 1;
 			}
 			if (t.className == "month"){
@@ -58,14 +135,33 @@ $(document).ready(function($) {
 		});
 	}
 
-	function render(widget) {
+	function render(widget, slide) {
 		if (!$('.calendar').length)
 		{
 			var offset = $('#calendar').offset();
 			$('body').append(widget);
 			addListeners();
-			$('.calendar').offset({ top: offset.top + 60, left: offset.left});
-			$('#calendar').val(currentDateString());
+			$('.calendar').offset({ top: offset.top + 55, left: offset.left});
+			$('#calendar').val(currentDateStringFirstT());
+			if (slide=='r'){
+				$(".calendarMatrix").css("right","-350px");
+				$(".calendarMatrix").animate({right:"0"},200);
+			}
+			if (slide=='l'){
+				$(".calendarMatrix").css("left","-350px");
+				$(".calendarMatrix").animate({left:"0"},200);
+			}
+			if (slide=='f'){
+
+				$(".calendarMatrix").css('transform','scale(3)')
+									.css('opacity','0');
+				setTimeout(function(){
+					$(".calendarMatrix").css('transition','0.15s')
+									.css('transform','scale(1)')
+									.css('opacity','1');
+				}, 1);
+				
+			}
 		}
 		else
 			$('.calendar').remove();

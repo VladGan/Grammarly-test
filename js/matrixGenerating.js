@@ -4,6 +4,7 @@ function v(clas) {
 function generateMatrixDay(matrix, type) {
 	var answer = "";
 	var nowDay = {};
+	var total = 0;
 	var x, start, end, calendarDayNumber=1, i=0;
 	var j = new Date(current.year,current.month,1).getDay();
 	start = j;
@@ -11,6 +12,7 @@ function generateMatrixDay(matrix, type) {
 	{
 		if (calendarDayNumber == current.monthDay) {nowDay.i = i; nowDay.j = j;}
 		matrix[i][j] = calendarDayNumber;
+		total++;
 		calendarDayNumber++;
 		j++;
 		if (j == 7){
@@ -21,11 +23,15 @@ function generateMatrixDay(matrix, type) {
 	end = j;
 	x = (current.month!=0)? daysInMonth(current.month-1,current.year) : daysInMonth(11,current.year-1);
 	for (j = start-1; j>=0; j--)
-		matrix[0][j]=-(x--);
+		matrix[0][j]=-(x--),total++;
 	x = 1;
-	if (end!=0)
+	while (total!=42)
+	{
 		for (j = end; j<7; j++)
-			matrix[i][j]=-(x++);
+			matrix[i][j]=-(x++),total++;
+		i++,end=0;
+	}
+		
 	answer = "<div class = 'line'>";
 		for (var i = 0; i<7; i++)
 			answer+="<span class='day DayW'>" + days[i].substring(0,2).toUpperCase() + "</span>";

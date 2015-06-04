@@ -10,17 +10,27 @@ var current = {
 };
 var today = jQuery.extend({}, current);
 
+function min(a,b){
+	if (a<b) return a;
+	return b;
+}
+
 function GetMonthName(monthNumber) {
 	return months[monthNumber];
 }
+
 function daysInMonth(month,year) {
 	return new Date(year, month+1, 0).getDate();
 }
-function currentDateString() {
-	var day=current.monthDay.toString();
-	var month=(current.month+1).toString();
-	var year=current.year.toString();
-	if (day.length < 2) day = "0" + day;
-	if (month.length < 2) month = "0" + month;
-	return day + "." + month + "." + year;
+
+function currentDateStringFirstT() {
+	if (current.year!=today.year)
+		return current.year + " " + months[current.month] + " " + current.monthDay;
+	return months[current.month] + " " + current.monthDay;
+	// var day=current.monthDay.toString();
+	// var month=(current.month+1).toString();
+	// var year=current.year.toString();
+	// if (day.length < 2) day = "0" + day;
+	// if (month.length < 2) month = "0" + month;
+	// return day + "." + month + "." + year;
 }

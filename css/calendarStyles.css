@@ -3,11 +3,10 @@
 	src: url(fonts/Lato-Light.ttf);
 }
 
-#calendar{
+#calendar {
 	font-family: Lato, sans-serif;
 	font-weight: lighter;
 	color: #323439;
-	cursor: pointer;
 	border: none;
 	border-radius: 0;
 	height: 45px;
@@ -16,14 +15,31 @@
 	font-size: 18px;
 }
 
+#icon1 {
+	background-color: #d5d5d6;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#icon2 {
+	background-color: #FFF;
+	width: 21px;
+	cursor: pointer;
+	height: 18px;
+}
+
 input {
 	padding-left: 20px;
 }
 
 .calendar{
 	width: 350px;
+	height: 400px;
 	background-color: #323439;
 	-webkit-user-select: none;
+	overflow: hidden;
 }
 .calendarHeader{
 	width: 350px;
@@ -41,26 +57,29 @@ input {
 
 .arrow{
 	cursor: pointer;
-	height: 11px;
-	position: absolute;
-	top: 50%;
-	padding: 10px;
-	height: 12px;
-	margin-top: -16px;
+	height: 20px;
+	padding: 12.5px 30px;
+	display: inline-block;
+	transition: background-color 0.2s;
 }
 .left{
 	transform: rotate(180deg);
-	left: 20px;
+	float: left;
 }
 .right{
-	right: 20px;
-
+	float: right;
 }
 .calendarHeaderText {
-	cursor: default;
+	cursor: pointer;
+	width: 207px;
+	display: inline-block;
+	transition: background-color 0.2s;
+}
+.calendarHeaderText:hover, .arrow:hover{
+	background-color: rgba(234, 102, 97, 0.5);
 }
 .calendarMatrix{
-	
+	position: relative;
 }
 
 .line{
@@ -77,15 +96,14 @@ input {
 	font-family: Lato;
 	font-size: 16px;
 	color: #fff;
-	margin: 9px;
+	margin: 6px 9px;
 	padding: 3px;
 	text-align: center;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
 	cursor: pointer;
-	border-radius: 30px;
-	transition: background-color 0.3s;
+	transition: 0.3s;
 }
 .day:hover, .month:hover, .year:hover{
 	background-color: rgba(234, 102, 97, 0.5);
@@ -96,7 +114,7 @@ input {
 	font-family: Lato;
 	font-size: 16px;
 	color: #fff;
-	margin: 16px 11px;
+	margin: 20px 11px;
 	padding: 3px;
 	text-align: center;
 	width: 50px;
@@ -104,11 +122,11 @@ input {
 	display: inline-block;
 	cursor: pointer;
 	border-radius: 30px;
-	transition: background-color 0.3s;
+	transition: 0.3s;
 
 }
 .month{
-	margin: 16px 22px;
+	margin: 20px 22px;
 }
 
 .DayW{
@@ -130,8 +148,10 @@ input {
 }
 
 .calendarTodayContainer{
-	padding-top: 8px;
-	padding-bottom: 20px;
+	position: absolute;
+	margin-left:-80px;
+	left:50%;
+	bottom: 15px;
 }
 .calendarToday:hover{
 	background-color: rgba(234, 102, 97, 0.5);
