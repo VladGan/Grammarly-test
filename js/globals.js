@@ -21,6 +21,7 @@ function getPos(){
 }
 function setPos(newPos){
 	$('#calendar')[0].setSelectionRange(newPos, newPos);
+	caretPos = getPos();
 }
 
 function GetMonthName(monthNumber) {
