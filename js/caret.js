@@ -171,7 +171,7 @@ function inputKeypressYear(event){
 		var char = String.fromCharCode(event.keyCode);
 		var value = $('#calendar').val();
 		value = value.substring(0, caretPos-1) + value.substring(caretPos);
-		if (value.split(' ').length == 3) {
+		if (value.split(' ').length == 3 && value.split(' ')[0].length!=0) {
 			$('#calendar').val(value);
 			setPos(caretPos-1);
 		}
@@ -181,7 +181,7 @@ function inputKeypressYear(event){
 		var char = String.fromCharCode(event.keyCode);
 		var value = $('#calendar').val();
 		value = value.substring(0, caretPos) + value.substring(caretPos+1);
-		if (value.split(' ').length == 3) {
+		if (value.split(' ').length == 3 && value.split(' ')[0].length!=0) {
 			$('#calendar').val(value);
 			setPos(caretPos);
 		}
