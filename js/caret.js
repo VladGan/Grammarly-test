@@ -104,6 +104,16 @@ function inputKeypressDay(event){
 			setPos(caretPos-1);
 		}
 	}
+	if (event.keyCode == 46) {
+		caretPos = getPos();
+		var char = String.fromCharCode(event.keyCode);
+		var value = $('#calendar').val();
+		value = value.substring(0, caretPos) + value.substring(caretPos+1);
+		if (value.split(' ').length == 3) {
+			$('#calendar').val(value);
+			setPos(caretPos);
+		}
+	}
 }
 
 function inputKeypressMonth(event){
@@ -131,6 +141,16 @@ function inputKeypressMonth(event){
 			setPos(caretPos-1);
 		}
 	}
+	if (event.keyCode == 46) {
+		var caretPos = getPos();
+		var char = String.fromCharCode(event.keyCode);
+		var value = $('#calendar').val();
+		value = value.substring(0, caretPos) + value.substring(caretPos+1);
+		if (value.split(' ').length == 3 && validMonth(value.split(' ')[1])) {
+			$('#calendar').val(value);
+			setPos(caretPos);
+		}
+	}
 }
 
 function inputKeypressYear(event){
@@ -154,6 +174,16 @@ function inputKeypressYear(event){
 		if (value.split(' ').length == 3) {
 			$('#calendar').val(value);
 			setPos(caretPos-1);
+		}
+	}
+	if (event.keyCode == 46) {
+		caretPos = getPos();
+		var char = String.fromCharCode(event.keyCode);
+		var value = $('#calendar').val();
+		value = value.substring(0, caretPos) + value.substring(caretPos+1);
+		if (value.split(' ').length == 3) {
+			$('#calendar').val(value);
+			setPos(caretPos);
 		}
 	}
 }
