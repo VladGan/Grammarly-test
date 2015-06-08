@@ -13,6 +13,8 @@
 	width: 330px;
 	line-height: 47px;
 	font-size: 18px;
+	position: absolute;
+	left: 500px;
 }
 
 #icon1 {
