@@ -118,7 +118,7 @@ function keybManageYear(key){
 			pos.i = i/4|0;
 			pos.j = i%4;
 		}
-	setPos(newPos,pos,key)
+	setNewPos(newPos,pos,key)
 	if (newPos.i == undefined) return;
 	var type = '';
 	if (newPos.j == 3 && newPos.i == 3) {
