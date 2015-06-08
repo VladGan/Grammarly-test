@@ -73,13 +73,16 @@ $(document).ready(function($) {
 		$('#icon1, #icon2').click(function() {
 			var widget = getWidget("day");
 			typeNum=0;
+			$("#calendar").prop("readonly", true);
 			$(document).on('click', function(event) {
 				var condition = !$(event.target).closest('.calendar').length 
 								&& $(event.target).attr('id')!="icon1" 
 								&& $(event.target).attr('id')!="icon2"
 								&& $(event.target).attr('id')!="calendar";
-				if (condition)
+				if (condition){
+					$("#calendar").prop("readonly", false);
 					render();
+				}
 			});
 			render(widget);
 		});

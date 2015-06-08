@@ -103,7 +103,10 @@ function inputKeypressDay(event){
 		var char = String.fromCharCode(event.keyCode);
 		var value = $('#calendar').val();
 		value = value.substring(0, caretPos) + char + value.substring(caretPos + 1);
-		if (value.split(' ')[2].length<=2) {
+
+		if (parseInt(value.split(' ')[2])>daysInMonth(current.month,current.year))
+			value = value.replace(value.split(' ')[2],daysInMonth(current.month,current.year));
+		if (value.split(' ')[2].length) {
 			$('#calendar').val(value);
 			setPos(caretPos+1);
 		}
@@ -174,7 +177,8 @@ function inputKeypressMonth(event){
 		var value = $('#calendar').val();
 		if (realValue) value=realValue;
 		value = value.substring(0, caretPos-1) + value.substring(caretPos);
-		if (value.split(' ').length == 3 ) {//&& validMonth(value.split(' ')[1])
+		if (value.split(' ').length == 3) {//
+			value = value.replace(value.substring(caretPos-1,value.split(' ')[1].length+5),'');
 			$('#calendar').val(value);
 			setAutocomplite(value,caretPos-1);
 			setPos(caretPos-1);
@@ -186,7 +190,8 @@ function inputKeypressMonth(event){
 		var value = $('#calendar').val();
 		if (realValue) value=realValue;
 		value = value.substring(0, caretPos) + value.substring(caretPos+1);
-		if (value.split(' ').length == 3) {// && validMonth(value.split(' ')[1])
+		if (value.split(' ').length == 3) {// 
+			value = value.replace(value.substring(caretPos,value.split(' ')[1].length+5),'');
 			$('#calendar').val(value);
 			setAutocomplite(value,caretPos);
 			setPos(caretPos);
