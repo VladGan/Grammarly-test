@@ -11,7 +11,7 @@
 	border-radius: 0;
 	height: 45px;
 	width: 330px;
-	line-height: 45px;
+	line-height: 47px;
 	font-size: 18px;
 }
 
@@ -36,6 +36,7 @@ input {
 
 .calendar{
 	width: 350px;
+	position: absolute;
 	height: 400px;
 	background-color: #323439;
 	-webkit-user-select: none;
@@ -171,4 +172,19 @@ input {
 	cursor: pointer;
 }
 
-
+.pseudoInput{
+	height:47px;
+	font-family: Lato;
+	font-weight: lighter;
+	font-size: 18px;
+	line-height:47px;
+	display: inline-block;
+	vertical-align: middle;
+	color: rgba(0,0,0,0.5);
+}
+.normal{
+	color: #323439!important;
+}
+.inv{
+	opacity: 0;
+}

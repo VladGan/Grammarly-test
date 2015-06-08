@@ -1,9 +1,12 @@
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 var types = ['day', 'month', 'year'];
+var arrows = [37, 38, 39, 40];
+var sp = "             ";
 var typeNum = 0;
 var currentDate = new Date();
-var caretType, caretPos;
+var caretType, caretPos, realValue, visibleValue;
+var autoCompliteOpen = false;
 var current = {
 	monthDay:currentDate.getDate(),
 	month:currentDate.getMonth(),
@@ -13,6 +16,11 @@ var today = jQuery.extend({}, current);
 
 function min(a,b){
 	if (a<b) return a;
+	return b;
+}
+
+function max(a,b){
+	if (a>b) return a;
 	return b;
 }
 

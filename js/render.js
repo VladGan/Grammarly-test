@@ -22,7 +22,15 @@ function render(widget, slide) {
 								.css('transform','scale(1)')
 								.css('opacity','1');
 			}, 1);
-			
+		}
+		if (slide=='b'){
+			$(".calendarMatrix").css('transform','scale(0)')
+								.css('opacity','1');
+			setTimeout(function(){
+				$(".calendarMatrix").css('transition','0.15s')
+								.css('transform','scale(1)')
+								.css('opacity','1');
+			}, 1);
 		}
 	}
 	else

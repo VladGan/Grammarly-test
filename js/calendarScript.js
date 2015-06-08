@@ -7,21 +7,53 @@ $(document).ready(function($) {
 			setPos(caretPos);
 		});
 
-		$('#calendar').focusout(function(){
-			saveDate();
+		$(document).keydown(function(){
+			if ($('.calendar').length){
+				if (typeNum == 0)  keybManageDay(event.keyCode);
+				if (typeNum == 1)  keybManageMonth(event.keyCode);
+				if (typeNum == 2)  keybManageYear(event.keyCode);
+			}
 		});
 
-		$('#calendar').keydown(function(event){
+		$('#calendar').focusout(function(){
+			saveDate(caretPos);
+			if (autoCompliteOpen){
+				autoCompliteOpen=false;
+				$('.pseudoInput').remove();
+				
+				realValue = undefined;
+				visibleValue = undefined;
+			}
+		});
+		$('#calendar').keydown(function(event) {
 			event.preventDefault();
-
-			if (event.keyCode == 38) return upHandler();
-			if (event.keyCode == 40) return downHandler();
-			if (event.keyCode == 37) return leftHandler();
-			if (event.keyCode == 39) return rightHandler();
-
-			if (caretType == "day")   inputKeypressDay(event);
-			if (caretType == "month") inputKeypressMonth(event);
-			if (caretType == "year")  inputKeypressYear(event);
+			if (!$('.calendar').length){
+				
+				if (!autoCompliteOpen) {
+					if (event.keyCode == 38) return upHandler();
+					if (event.keyCode == 40) return downHandler();
+					if (event.keyCode == 37) return leftHandler();
+					if (event.keyCode == 39) return rightHandler();
+				}
+				else {
+					var condition =
+					(event.keyCode == 38) ||
+					(event.keyCode == 40) ||
+					(event.keyCode == 39);
+					if (condition){
+						$('.pseudoInput').remove();
+						autoCompliteOpen=false;
+						saveDate(5+visibleValue.split(' ')[1].length);
+						realValue = undefined;
+						visibleValue = undefined;
+					}
+					if (event.keyCode == 37) return leftHandler();
+				}
+				if (caretType == "day")   inputKeypressDay(event);
+				if (caretType == "month") inputKeypressMonth(event);
+				if (caretType == "year")  inputKeypressYear(event);
+			}
+			
 		});
 
 		$('body').append('<div id="icon1"></div>');
