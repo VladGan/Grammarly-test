@@ -1,23 +1,30 @@
-function setNewPos(newPos,pos,key){
-if (key == 38) {
-		newPos.i = pos.i-1;
-		newPos.j = pos.j;
-	}
-	if (key == 40) {
-		newPos.i = pos.i+1;
-		newPos.j = pos.j;
-	}
-	if (key == 37) {
-		newPos.i = pos.i;
-		newPos.j = pos.j-1;
-	}
-	if (key == 39) {
-		newPos.i = pos.i;
-		newPos.j = pos.j+1;
+function setNewPos(newPos,pos,key,e){
+	if (e.altKey){
+		if (key == 40)
+			nextLvl(1);
+		if (key == 38)
+			nextLvl(-1);
+	} else {
+		if (key == 38) {
+			newPos.i = pos.i-1;
+			newPos.j = pos.j;
+		}
+		if (key == 40) {
+			newPos.i = pos.i+1;
+			newPos.j = pos.j;
+		}
+		if (key == 37) {
+			newPos.i = pos.i;
+			newPos.j = pos.j-1;
+		}
+		if (key == 39) {
+			newPos.i = pos.i;
+			newPos.j = pos.j+1;
+		}
 	}
 }
 
-function keybManageDay(key){
+function keybManageDay(key,e){
 	var pos = {}, newPos = {};
 	var days = $('.day');
 	for (var i = 0; i<days.length; i++)
@@ -25,7 +32,7 @@ function keybManageDay(key){
 			pos.i = i/7|0;
 			pos.j = i%7;
 		}
-	setNewPos(newPos,pos,key)
+	setNewPos(newPos,pos,key,e)
 	if (newPos.i == undefined) return;
 	var type = '';
 	if (newPos.j > 6) {
@@ -76,7 +83,7 @@ function keybManageDay(key){
 		render(widget);
 	}
 }
-function keybManageMonth(key){
+function keybManageMonth(key,e){
 	var pos = {}, newPos = {};
 	var days = $('.month');
 	for (var i = 0; i<days.length; i++)
@@ -84,7 +91,7 @@ function keybManageMonth(key){
 			pos.i = i/3|0;
 			pos.j = i%3;
 		}
-	setNewPos(newPos,pos,key)
+	setNewPos(newPos,pos,key,e)
 	if (newPos.i == undefined) return;
 	if (newPos.j > 2) {
 		newPos.i++;
@@ -110,7 +117,7 @@ function keybManageMonth(key){
 	render();
 	render(widget);
 }
-function keybManageYear(key){
+function keybManageYear(key,e){
 	var pos = {}, newPos = {};
 	var days = $('.year');
 	for (var i = 0; i<days.length; i++)
@@ -118,7 +125,7 @@ function keybManageYear(key){
 			pos.i = i/4|0;
 			pos.j = i%4;
 		}
-	setNewPos(newPos,pos,key)
+	setNewPos(newPos,pos,key,e)
 	if (newPos.i == undefined) return;
 	var type = '';
 	if (newPos.j == 3 && newPos.i == 3) {

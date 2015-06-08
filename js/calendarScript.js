@@ -9,9 +9,9 @@ $(document).ready(function($) {
 
 		$(document).keydown(function(){
 			if ($('.calendar').length){
-				if (typeNum == 0)  keybManageDay(event.keyCode);
-				if (typeNum == 1)  keybManageMonth(event.keyCode);
-				if (typeNum == 2)  keybManageYear(event.keyCode);
+				if (typeNum == 0)  keybManageDay(event.keyCode,event);
+				if (typeNum == 1)  keybManageMonth(event.keyCode,event);
+				if (typeNum == 2)  keybManageYear(event.keyCode,event);
 			}
 		});
 
